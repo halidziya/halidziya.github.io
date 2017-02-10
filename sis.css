@@ -1,0 +1,103 @@
+body { 
+font-family : arial;
+}
+#maincol {
+	width:60%;
+	min-width:1000px;
+	float:left;
+	margin:0px;
+	margin-left : 10%;
+	overflow:hidden;
+	margin-top : 1%;
+	border : 1px solid black;
+	border-radius:10px;
+}
+
+.infobox
+{
+	width: 46%;
+    background-color: #AD8;
+    border-radius: 10px;
+    padding: 10px;
+    display: inline-block;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+	float:left;
+	margin-top:16px;
+}
+
+
+.rightfloat{
+	float:right;
+	margin-right:20px;
+}
+
+#title
+{
+	background-color:#358;
+	margin: -10px;
+	margin-bottom: 20px;
+	height : 20px;
+	padding : 10px;
+	color : white;
+	font-size : 16px;
+}
+
+#title h3
+{
+	margin-top:0px;
+}
+
+#menu
+{
+	width:15%;
+	float:left;
+	background-color:#358;
+	padding:0px;
+	margin-bottom : -2000px;
+	padding-bottom : 2000px;
+	padding-top:10px;
+	height:100%;
+}
+
+#content
+{
+	margin-left : 15%;
+	padding-left : 10px;
+	margin-bottom : -2000px;
+	padding-bottom : 2000px;
+	background-color:#DB8;
+	padding-top:10px;
+}
+
+#menulist li{
+	display : block;
+	background-color:#aaaacc;
+	margin:1px;
+	font-size:14px;
+	padding:2px;
+	padding-left:4px;
+	border-radius:5px;
+}
+
+#menulist li:hover
+{
+	background-color:#ddddcc;
+	cursor:pointer;
+}
+
+#menulist {
+	list-style: none;
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	margin-top:30px;
+}
+
+body {
+
+	background-color:#888888;
+	padding:0px;
+	margin:0px;
+	font-size : 14px;
+}
+
