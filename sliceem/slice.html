@@ -1,0 +1,471 @@
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.5.3/math.min.js"></script>
+</head>
+<body>
+<input id="filename" type="file" name="filename" style="" />
+<center>
+<canvas id="a" width="600" height="600">
+	This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+		
+<script>
+
+function transpose(x)
+{
+	var i,j;	
+	var vals=[];
+	for (i=0;i<x[0].length;i++)
+		vals[i]=[];
+	for (var i=0;i<x.length;i++)
+		for (var j=0;j<x[i].length;j++)
+			vals[j][i]= x[i][j];
+			
+	return vals;
+}
+
+function drawdot(context,x,y,color)
+{
+	context.beginPath();
+	context.fillStyle=color;
+	context.ellipse((x-minX)/(maxX-minX)*600,(y-minY)/(maxY-minY)*600, 2, 2, 0 , 0, 2 * Math.PI);
+	context.fill();
+}
+
+function drawGauss(context,mu,sigma,size)
+{
+	context.beginPath();
+	var l=sigma[0][0]*sigma[1][1];
+	context.ellipse((mu[0]-minX)/(maxX-minX)*600,(mu[1]-minY)/(maxY-minY)*600, size,size, Math.acos(sigma[0][1]/Math.sqrt(l)) , 0, 2 * Math.PI);
+	context.stroke();
+}
+
+function rn()
+{
+	add=0;
+	for(var i=0;i<25;i++) //Hack with central limit theorem
+		add += Math.random();
+	return (add/25-0.5)*5;
+}
+
+
+
+function zeros(m)
+{
+	mat = [];
+	for (var i = 0; i < m ; i++)
+	{
+	mat[i]=[];
+	for (var  j = 0; j < m ; j++)
+		mat[i][j] = 0;
+	}
+	return mat;
+}
+
+function eye(m)
+{
+	var mat = [];
+	for (var i = 0; i < m ; i++)
+	{
+	mat[i]=[];
+	for (var j = 0; j < m ; j++)
+		if (i==j)
+			mat[i][j] = 1;
+		else
+			mat[i][j] = 0;
+	}
+	return mat;
+}
+
+function chol(matrix)
+{
+	var s = 0;
+	var i,j,k;
+	var m = matrix[0].length;
+	var mat = zeros(m);
+    for (var i = 0; i < m ; i++)
+	{
+        for (var  j = 0; j < i; j++) {
+            for (s=0,k = 0; k < j; k++)
+                s += mat[i][k] * mat[j][k];
+            mat[i][j] = ( (matrix[i][j] - s) / mat[j][j] ) ;
+        }
+	for (var s=0,k = 0; k < i; k++)
+		s += mat[i][k] * mat[i][k];
+	mat[i][i] = Math.sqrt(matrix[i][i] - s);
+	}
+	return mat;
+}
+
+function sumlogdiag(matrix)
+{
+	var s=0;
+	for (var  i = 0; i < matrix.length ; i++)
+		s+= Math.log(matrix[i][i]);
+	return s;
+}
+
+function sub(v1,v2)
+{
+	var s=[];
+	for (var  i = 0; i < v1.length ; i++)
+		s[i]= v1[i] - v2[i];
+	return s;
+}
+
+function dim(matrix)
+{
+	return matrix[0].length;
+}
+
+function mvnpdf(x,mu,sigma)
+{
+		var cholsigma = chol(sigma);
+		var sld = sumlogdiag(cholsigma);
+		var dist = 0,disti=0;
+		var dd  = sub(x,mu);
+		var d = dim(sigma);
+		//console.log(cholsigma);
+		for (var i = 0; i < d; i++) {
+			disti = dd[i] / cholsigma[i][i];
+			for (var j = d - 1; j>i; j--)
+			{
+				dd[j] -= cholsigma[j][i] * disti;
+			}
+			dist += disti*disti;
+		}
+		return - (d * 0.5)*Math.log(2 * Math.PI) - sld -0.5*dist; 
+}
+
+// Single param
+function rgamma(alpha) {
+if (alpha > 1){
+    	var d=alpha-1/3; var c=1/Math.sqrt(9*d); var flag=1;
+		while(flag)
+		{
+			var Z=rn();
+			if (Z > (-1./c)){
+				var V=Math.pow((1+c*Z),3); var U=Math.random();
+				flag= (Math.log(U) > (0.5*Math.pow(Z,2)+d-d*V+d*Math.log(V)));
+			}
+		var x=d*V;
+		}
+	}
+else{
+    var x=rgamma(alpha+1);
+    x=x*Math.pow(Math.random(),(1/alpha));
+}
+return x;
+}
+
+function rbeta(alpha,beta)
+{
+	var v1 = rgamma(alpha);
+	var v2 = rgamma(beta);
+	return (v1/(v1+v2));
+}
+
+function rdir(counts)
+{
+	var s = [];
+	var sum = 0;
+	for (var i=0;i<counts.length;i++){
+		s[i] = rgamma(counts[i]);
+		sum += s[i];
+	}
+	for (var i=0;i<counts.length;i++)
+		s[i]=s[i]/sum;
+	return s;
+}
+
+
+function stickBreaker(counts,minval)
+{
+	counts[counts.length] = 1; // Alpha is default 1
+	var s = rdir(counts);
+	remaining = s[counts.length-1];
+	counts.pop();
+	var i=counts.length;
+	while (remaining > minval)
+		{
+			s[i]=remaining*rbeta(1,1) // Beta(1,1) is uniform
+			remaining = remaining - s[i];
+			i++;
+		}
+	s[i] = remaining;
+	return s;
+}
+
+function apply(list,func)
+{
+	var result=[];
+	for (var i=0;i<list.length;i++)
+	{
+		result[i]=[];
+		for (var j=0;j<list[i].length;j++)
+			result[i][j] = func(list[i][j]);
+	}
+	return result;
+}
+
+function rownormalize(list)
+{
+	var result=[];
+	var sum=[];
+	for (var i=0;i<list.length;i++){
+		result[i]=[];
+		sum[i] = 0;
+		for (var j=0;j<list[i].length;j++)
+			sum[i] += list[i][j];
+		for (var j=0;j<list[i].length;j++)
+			result[i][j] = list[i][j]/sum[i];
+	}
+	return result;
+}
+
+function vsum(p)
+{
+	var sum = 0;
+	for (var i=0;i<p.length;i++)
+		sum+= p[i];
+	return sum;
+}
+
+function weightedmean(x,p)
+{
+	var sum = vsum(p) + 1; // Kappa , MAP estimate
+	var mean = [];
+	for (var j=0;j<x[0].length;j++)
+		mean[j] = 0; // mu0 value
+	for (var i=0;i<x.length;i++)
+		for (var j=0;j<x[i].length;j++)
+			mean[j] += x[i][j]*p[i]/sum;
+	return mean;
+}
+
+psi =[];
+function weightedcovmean(data,mu,p)
+{
+	var sum = vsum(p) + data[0].length + 2; // MAP estimate
+	var mean = [];
+	for (var i=0;i<data[0].length;i++)
+	{	
+	mean[i] = [];
+	for (var j=0;j<data[0].length;j++)
+		mean[i][j] = psi[i][j];
+	}
+		
+	for (var i=0;i<data.length;i++)
+		for (var j=0;j<data[i].length;j++)
+			for (var k=0;k<data[i].length;k++)
+				mean[j][k] += (data[i][j] - mu[j]) * (data[i][k] - mu[k]) * p[i] /sum;
+	return mean;
+}
+
+function vwsum(v,p)
+{
+	var sum = 0;
+	for (var i=0;i<p.length;i++)
+		sum+= v[i]*p[i];
+	return sum;
+}
+
+function isBigEnough(value) {
+  return value >= 0.0000000001;
+}
+
+function min(vec){ 
+var minval=vec[0];   
+for (var i=0;i<vec.length;i++)
+	if (minval > vec[i])
+		minval = vec[i];
+return minval;
+}
+
+function max(vec){ 
+var maxval=vec[0];   
+for (var i=0;i<vec.length;i++)
+	if (maxval < vec[i])
+		maxval = vec[i];
+return maxval;
+}
+
+
+
+function sliceEM(){
+	  for (var iter=0;iter<2;iter++){
+		  minu = u[0];
+		  for (var i=0;i<n;i++)
+		  	if (minu > u[i])
+		  		minu = u[i];
+		  sticks = stickBreaker(counts,minu); 
+		  nc = sticks.length;
+
+		 for (i=counts.length;i<nc;i++)
+		 {
+		 	idx = Math.floor(Math.random()*n);
+		 	u[idx] = sticks[i]/2;
+			mus[i] = data[idx];
+			sigmas[i] = eye(d);
+			
+		 }
+	 
+		  for (i=0;i<n;i++)
+			u[i]= vwsum(sticks,prob[i]) *Math.random();
+
+		  likelihoods = [];
+		  for (i=0;i<n;i++)
+		  {
+			likelihoods[i] = [];
+			for (j=0;j<nc;j++)
+			{
+				if (u[i] < sticks[j] )
+				{
+					//likelihoods[i][j] = 1;
+					likelihoods[i][j] = mvnpdf(data[i],mus[j],sigmas[j]);
+				}
+				else
+				{
+					likelihoods[i][j] = -100; // -Inf ideally
+				}
+			}
+		  }
+		  maxvals = [];
+		  for (var i=0;i<n;i++)
+		  {
+			maxvals[i] = likelihoods[i][0];
+			for (var j=0;j<nc;j++)
+			{
+				if (maxvals[i] < likelihoods[i][j])
+					maxvals[i] = likelihoods[i][j];
+			}
+			for (var j=0;j<nc;j++)
+				{
+					likelihoods[i][j] = likelihoods[i][j] - maxvals[i];
+				}
+		  }
+		  prob=rownormalize(apply(likelihoods,Math.exp));
+
+		  counts = [];
+		  for (var j=0;j<nc;j++)
+		  	counts[j] = 0;
+		  for (var i=0;i<n;i++)
+		  {
+		  	for (var j=0;j<nc;j++)
+				counts[j] += prob[i][j];
+		  }
+
+		  tprob = transpose(prob)
+		  var nprob =[];
+		  for (var j=0;j<nc;j++)
+		  	if (isBigEnough(counts[j]))
+		  		nprob.push(tprob[j]);
+		  tprob = nprob;
+		  prob  = transpose(tprob);
+		  counts = counts.filter(isBigEnough);
+		  nc = counts.length;
+
+		  mus = [];
+		  sigmas=[];
+		  for (var i=0;i<nc;i++)
+		  {
+				mus[i] = weightedmean(data,tprob[i]);
+				sigmas[i] = eye(d);//weightedcovmean(data,mus[i],tprob[i]);
+		  }
+		  
+	  }
+
+
+}
+
+function argmax(v)
+{
+	var maxval = v[0];
+	var idx    = 0;
+	for (var i=0;i<v.length;i++){
+		if (maxval < v[i])
+		{
+			maxval = v[i];
+			idx = i;
+		}
+	}
+
+	return idx;
+}
+
+colors = ["#FF0000","#00FF00","#0000FF","#FF00FF","#FFFF00","#00FFFF"]
+function animate()
+{
+
+		
+	sliceEM();
+	context.clearRect(0, 0, a_canvas.width, a_canvas.height)
+    for(var i=0;i<n;i++){
+		drawdot(context,data[i][0],data[i][1],colors[argmax(prob[i]) % colors.length]);
+    }
+		
+	  for (j=0;j<nc;j++)
+			drawGauss(context,mus[j],sigmas[j],5*math.log(1+counts[j]));
+	  setTimeout(animate,500);
+}
+  
+var data = [];
+function handleFileSelect(evt) {
+var files = evt.target.files; // FileList object
+var reader = new FileReader();
+
+reader.onloadend = function(evt){ 
+
+      alert("Data Loaded"); 
+      lines = evt.target.result.split('\n');
+      for(var i=0;i<lines.length;i++)
+      {
+        var vals = lines[i].split(',');
+        for (var j=0;j<vals.length;j++)
+          vals[j] = parseFloat(vals[j]);
+        lines[i] = vals;
+      }
+      
+      if (lines[lines.length-1].length < lines[0].length) delete(lines.pop()); // Last empty line 
+      data = lines;
+	  tdata = transpose(data);
+	  maxX  = max(tdata[0]);
+	  minX  = min(tdata[0]);
+	  maxY  = max(tdata[1]);
+	  minY  = min(tdata[1]);
+
+	  a_canvas = document.getElementById("a");
+	  context = a_canvas.getContext("2d");
+	  n = data.length;
+	  d = data[0].length;
+
+	
+	  counts = [];
+	  mus =[]; sigmas=[];
+	  minu=0.1;
+	  u=[];
+	  prob = [];
+	  sticks = [0.5,0.5];
+	  nc = 2;
+	  for(var i=0;i<n;i++)
+	  {
+	  	prob[i] = [0.5,0.5];
+	  	u[i] = 0.0001;
+	  }
+	  for (i=0;i<nc;i++)
+	 {
+			mus[i] = data[Math.floor(Math.random()*n)];
+			sigmas[i] = eye(d)/40;
+	 }
+	 psi =eye(d);
+	 
+	animate();
+		
+
+
+	// draw
+     }
+reader.readAsText(files[0]);
+}
+  document.getElementById('filename').addEventListener('change', handleFileSelect, false);
+  </script>
+</body>

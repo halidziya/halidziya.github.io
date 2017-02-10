@@ -16,7 +16,7 @@ font-family : arial;
 .infobox
 {
 	width: 46%;
-    background-color: #AD8;
+    background-color: #AD5;
     border-radius: 10px;
     padding: 10px;
     display: inline-block;
@@ -33,7 +33,7 @@ font-family : arial;
 
 #title
 {
-	background-color:#358;
+	background-color:#259;
 	margin: -10px;
 	margin-bottom: 20px;
 	height : 20px;
@@ -51,7 +51,7 @@ font-family : arial;
 {
 	width:15%;
 	float:left;
-	background-color:#358;
+	background-color:#259;
 	padding:0px;
 	margin-bottom : -2000px;
 	padding-bottom : 2000px;
@@ -65,7 +65,7 @@ font-family : arial;
 	padding-left : 10px;
 	margin-bottom : -2000px;
 	padding-bottom : 2000px;
-	background-color:#DB8;
+	background-color:#DB4;
 	padding-top:10px;
 }
 
