@@ -1,0 +1,31 @@
+<html class="gr__mdn_github_io"><head>
+    <meta charset="utf-8">
+    <title>WASM test with XHR</title>
+  </head>
+
+  <body data-gr-c-s-loaded="true">
+    <script>
+      var importObject = {
+        imports: {
+          imported_func: function(arg) {
+            console.log(arg);
+          }
+        }
+      };
+
+      request = new XMLHttpRequest();
+      request.open('GET', 'hello.wasm');
+      request.responseType = 'arraybuffer';
+      request.send();
+
+      request.onload = function() {
+        var bytes = request.response;
+        WebAssembly.instantiate(bytes, importObject).then(function(obj) {
+          obj.instance.exports.exported_func();
+        });
+      };
+    </script>
+  
+
+
+</body></html>
