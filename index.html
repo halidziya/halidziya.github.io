@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html >
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Halid Ziya Yerebakan</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/vue@3"></script>
+
+<script defer>
+window.addEventListener('load', function() {
+var el = document.getElementById("search");
+el.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        alert("Do search");
+    }
+});
+});
+
+cv_data = [
+    {"section": "Intrests", "content": 
+     {"text": "Machine Learning, Natural Language Processing, \
+         Computer Vision Bayesian Non-Parametrics, Clustering, \
+         Topic Models, Representation Learning, Language Models, \
+         Transfer Learning, Parallel Computing, Metric Learning, \
+         Speech Recognition."}},
+    
+    {"section": "Education", "content": 
+         {"table": [["https://www.purdue.edu",
+                     "https://956560.smushcdn.com/2663776/app/uploads/2022/03/PurdueSignatureLogoHorizontal-cropped-e1648229258541.jpeg?lossy=1&strip=1&webp=1", 
+                     "Spring 2017",
+                     "Ph.D. Computer Science, Hierarchical Non-parametric Bayesian Mixture Models and Applications"]]}},
+    {"section": "Experience", "content": 
+         {"table": [["https://www.siemens-healthineers.com",
+                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg", 
+                     "6/2017 - Present",
+                     "Machine Learning Scientist: Developed and deployed LSTM, Resnet, Transformer based Neural Networks for Medical Imaging or Natural Language processing applications. \
+                                                  Investigated different concepts and algorithms to improve radiology workflow. Contributed on cloud infastructure for efficient AI development."]
+                    ,["https://iupui.edu",
+                     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/IUPUI_wordmark.svg/1200px-IUPUI_wordmark.svg.png", 
+                     "1/2011 - 6/2017",
+                     "Research & Teaching Assistant: Developed hierarchical non-parametric Bayesian mixture models to extract hierarchical relationships within remote sensing and text data"]
+                    ,["https://www.siemens-healthineers.com",
+                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg",
+                     "Summer 2015, 2016",
+                     "Machine Learning Intern: Developed machine learning methods for radiology report analysis and applied for a patent"]
+                     
+                     ,["https://www.corteva.com/",
+                     "https://assets.corteva.com/is/image/Corteva/CortevaLegal_HorColor_RGB_no_tagline",
+                     "Summer 2014",
+                     "Statistics Intern: Improved a statistical simulation by making it more robust, faster, and more visual. Awarded best intern poster presentation."]
+                     ,
+                     ["https://bashpolesoftware.com/",
+                     "https://bashpolesoftware.com/wp-content/uploads/2016/06/bashpolelogo_sm-1.png",
+                     "Summer 2012",
+                     "Machine Learning Intern: mproved performance of record matching using various machine learning and NLP methods"]
+                    ]}},
+    
+                     
+
+    {"section": "Service", "content" : {"text": "SIAM SDM 2014 Reviewer, NIPS 2016 Reviewer, Lesson.Land Volunteer Tutor, FreeBSD Developers Handbook translation"}},
+
+
+]
+
+window.onload = function () {
+const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        data: cv_data
+      }
+    }
+  }).mount('#app')
+}
+    
+</script>
+
+<style>
+    html {
+        height: 100%;
+        vertical-align: middle;
+        padding: 20px;
+    }
+    a {
+        text-decoration: none;
+    }
+    h4{
+        margin: 6px;
+        margin-left: 0px;
+        color: #7a0e0e;
+    }
+    input {
+    background: #e8f1c5;
+    border: 1px solid #72664f;
+    border-radius: 4px;
+    }
+    .page {
+    margin: auto;
+    background-color: #ffffff;
+    height: 98%;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    max-width: 1000px;
+    }
+    .icon{
+        max-height: 24px;
+        object-fit:
+        contain;
+        vertical-align: center;
+        padding: 0px;
+        object-fit: contain;
+    }
+    td{
+        padding: 4px;
+    }
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>   
+
+</head>
+<body style="background:#999;">
+
+<div class="page">
+    <div id="header" style="display: grid;height: 30px;">
+        <div style="grid-column-start: 1;">
+                Halid Ziya Yerebakan <br> 
+                <a href="mailto:halidziya@gmail.com ">halidziya@gmail.com</a> ||
+                <a href="https://halidziya.github.io"> halidziya.github.io </a>
+        </div>
+        
+        <div style="grid-column-start: 2;">
+        <a href="https://www.linkedin.com/in/halid-ziya-yerebakan-a7124226/">
+        <img class="icon" src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"></img>
+        </a>
+        
+        <a href="https://github.com/halidziya">
+            <img class="icon"  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+            </img>
+        </a>
+        
+        
+        <a href="https://scholar.google.com/citations?user=jgI0b8cAAAAJ&hl=en">
+            <img class="icon" src="https://img.icons8.com/ios-filled/50/undefined/google-scholar--v2.png"/>
+        </a>
+        
+        <a href="https://halidziya.blogspot.com">
+            <img class="icon"  src="https://img.icons8.com/color/48/undefined/blogger.png"/>
+        </a>
+        </div>
+
+        <div style="grid-column-start: 3;">
+        Search: 
+        <input type="text" id="search"></input>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div id="app">
+        <div v-for="row of data">
+            <h4>{{row["section"]}}</h4>
+            
+            <span v-if="row.content.text">{{row["content"]["text"]}}</span>
+            
+            <table v-if="row.content.table" style="table-layout:fixed;">
+            <tr v-for="tablerow of row.content.table">
+                <td style="width: 10%;">        
+                <a :href="tablerow[0]">
+                <img class="icon" :src="tablerow[1]"></a></td>
+                <td name="date" style="width: 10%;">{{tablerow[2]}}</td>
+                <td style="width: 80%;">{{tablerow[3]}}</td>
+            </tr>
+            </table>
+            
+        </div>
+        
+    </div>
+
+
+    <div id="publications">
+        <h4>Publications</h4>
+        <ol>
+            <li>H Yerebakan, Y Shinagawa, A Jerebko, K Zeng, S Allen-Raffl, Gerardo Hermosillo Valadez, Clinical decision support, US Patent Applicaton</li>
+            <li>
+                Shaika Chowdhury, Halid Yerebakan, Yoshihisa Shinagawa, Philip S. Yu ”MedTextSeg:
+                A Deep Dual Sequential Model for Section Segmentation in Medical Reports” 2021 IEEE
+                International Conference on Big Data (2021). <a href="">  <i class="fa fa-download" aria-hidden="true"></i> </a>
+            </li>
+            <li>
+                Halid Yerebakan, Yoshihisa Shinagawa, Anna Jerebko ”Image Retrieval”. EP Patent
+                Application EP3910645A4 (2021)
+            </li>
+            <li>
+                Halid Yerebakan, Anna Jerebko, Parmeet Bhatia ”Processing a medical image to provide
+                a visual indicator”. EP Patent Application EP3869453A1 (2021)
+            </li>
+            <li>
+                Halid Yerebakan, Yoshihisa Shinagawa. ”Encoding textual information for text analysis.”
+                U.S. Patent Application No. 16/846,756, US20200334410A1 (2020).
+            </li>
+            <li>
+                Yoshihisa Shinagawa, Halid Ziya Yerebakan ”Supervised Features For Text Classification”,
+                EP Patent Application EP3657354A1 (2020).
+            </li>
+            <li>
+                Colin B Hansen, Yiyuan Zhao, Halid Yerebakan, Luca Bogoni, Anna Jerebko ”False
+                positive reduction of vasculature for pulmonary nodule detection”, Proceedings Volume
+                11314, Medical Imaging 2020: Computer-Aided Diagnosis; 113142B (2020)
+            </li>
+            <li>
+                Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Visualization
+                framework based on document representation learning”, US Patent App. 15/865,539.
+            </li>
+            <li>
+                Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Document
+                Representation Learning For Patient History Visualization”, Coling 2018 Demo Paper.
+            </li>
+            <li>
+                Halid Ziya Yerebakan, Murat Dundar ”Partially Collapsed Parallel Gibbs Sampler for
+                Dirichlet Process Mixture Models”, Pattern Recognition Letters, 2017
+            </li>
+            <li>
+                Halid Ziya Yerebakan, Yiqiang Zhan, Fitsum Reda, Yoshihisa Shinagawa ”Hierarchical
+                Latent Word Clustering”, NIPS Non-parametric Bayesian Workshop, NIPS’15.
+            </li>
+            <li>
+                Halid Z. Yerebakan, Bartek Rajwa, Murat Dundar, ”The Infinite Mixture of Infinite
+                Gaussian Mixtures”, (I2GMM) NIPS’14
+            </li>
+            <li>
+                Murat Dundar, Halid Ziya Yerebakan , Bartek Rajwa, ”Batch Discovery of Recurring
+                Rare Classes toward Identifying Anomalous Samples” , SIGKDD 2014.
+            </li>
+            <li>
+                Murat Dundar, Ferit Akova, Halid Z. Yerebakan, Bartek Rajwa, ”A Non-parametric
+                Bayesian Model for Joint Cell Clustering and Cluster Matching: Identification of Anomalous
+                Sample Phenotypes with Random Effects,” BMC Bioinformatics 15 (1), 314, 2014
+            </li>
+        </ol>
+    </div>
+
+</div>
+
+</body></html>
