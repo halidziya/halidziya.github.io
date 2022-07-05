@@ -5,77 +5,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/vue@3"></script>
 
-<script defer>
-window.addEventListener('load', function() {
-var el = document.getElementById("search");
-el.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        alert("Do search");
-    }
-});
-});
-
-cv_data = [
-    {"section": "Intrests", "content": 
-     {"text": "Machine Learning, Natural Language Processing, \
-         Computer Vision Bayesian Non-Parametrics, Clustering, \
-         Topic Models, Representation Learning, Language Models, \
-         Transfer Learning, Parallel Computing, Metric Learning, \
-         Speech Recognition."}},
-    
-    {"section": "Education", "content": 
-         {"table": [["https://www.purdue.edu",
-                     "https://956560.smushcdn.com/2663776/app/uploads/2022/03/PurdueSignatureLogoHorizontal-cropped-e1648229258541.jpeg?lossy=1&strip=1&webp=1", 
-                     "Spring 2017",
-                     "Ph.D. Computer Science, Hierarchical Non-parametric Bayesian Mixture Models and Applications"]]}},
-    {"section": "Experience", "content": 
-         {"table": [["https://www.siemens-healthineers.com",
-                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg", 
-                     "6/2017 - Present",
-                     "Machine Learning Scientist: Developed and deployed LSTM, Resnet, Transformer based Neural Networks for Medical Imaging or Natural Language processing applications. \
-                                                  Investigated different concepts and algorithms to improve radiology workflow. Contributed on cloud infastructure for efficient AI development."]
-                    ,["https://iupui.edu",
-                     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/IUPUI_wordmark.svg/1200px-IUPUI_wordmark.svg.png", 
-                     "1/2011 - 6/2017",
-                     "Research & Teaching Assistant: Developed hierarchical non-parametric Bayesian mixture models to extract hierarchical relationships within remote sensing and text data"]
-                    ,["https://www.siemens-healthineers.com",
-                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg",
-                     "Summer 2015, 2016",
-                     "Machine Learning Intern: Developed machine learning methods for radiology report analysis and applied for a patent"]
-                     
-                     ,["https://www.corteva.com/",
-                     "https://assets.corteva.com/is/image/Corteva/CortevaLegal_HorColor_RGB_no_tagline",
-                     "Summer 2014",
-                     "Statistics Intern: Improved a statistical simulation by making it more robust, faster, and more visual. Awarded best intern poster presentation."]
-                     ,["https://bashpolesoftware.com/",
-                     "https://bashpolesoftware.com/wp-content/uploads/2016/06/bashpolelogo_sm-1.png",
-                     "Summer 2012",
-                     "Machine Learning Intern: Improved performance of record matching using various machine learning and NLP methods"]
-                     ,['https://ctech.com.tr', 'https://ctech.com.tr/frontend/img/logo.svg', 
-                      "Summer 2009", "Embedded Developer Intern: RTSP Stream transfer using BeagleBoard embedded system and its GPIO driver"]
-                    ]}},
-    
-                     
-    {"section": "Service", "content" : {"list": "SIAM SDM 2014 Reviewer, NIPS 2016 Reviewer, Lesson.Land Volunteer Tutor, FreeBSD Developers Handbook translation"}},
-    {"section": "Service", "content" : {"text": "SIAM SDM 2014 Reviewer, NIPS 2016 Reviewer, Lesson.Land Volunteer Tutor, FreeBSD Developers Handbook translation"}},
-
-
-]
-
-window.onload = function () {
-const { createApp } = Vue
-
-  createApp({
-    data() {
-      return {
-        data: cv_data
-      }
-    }
-  }).mount('#app')
-}
-    
-</script>
-
 <style>
     html {
         height: 100%;
@@ -90,6 +19,7 @@ const { createApp } = Vue
         margin-left: 0px;
         color: #7a0e0e;
     }
+    li { margin: 0px; padding: 0px;}
     input {
     background: #e8f1c5;
     border: 1px solid #72664f;
@@ -120,6 +50,145 @@ const { createApp } = Vue
         max-height: 100%;
     }
 </style>   
+
+
+<script defer>
+cv_data = [
+    {"section": "Intrests", "content": 
+     {"text": "Machine Learning, Natural Language Processing, \
+         Computer Vision Bayesian Non-Parametrics, Clustering, \
+         Topic Models, Representation Learning, Language Models, \
+         Transfer Learning, Parallel Computing, Metric Learning, \
+         Speech Recognition."}},
+    
+    {"section": "Education", "content": 
+         {"table": [["https://www.purdue.edu",
+                     "https://956560.smushcdn.com/2663776/app/uploads/2022/03/PurdueSignatureLogoHorizontal-cropped-e1648229258541.jpeg?lossy=1&strip=1&webp=1", 
+                     "Spring 2017",
+                     "Ph.D. Computer Science, Hierarchical Non-parametric Bayesian Mixture Models and Applications"]]}},
+
+    {"section": "Experience", "content": 
+         {"table": [["https://www.siemens-healthineers.com",
+                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg", 
+                     "6/2017 - Present",
+                     "Machine Learning Scientist: Developed and deployed LSTM, Resnet, and Transformer based Neural Networks for Medical Imaging or Natural Language processing applications. Investigated different concepts and algorithms to improve radiology workflow. Contributed to cloud infrastructure for efficient AI development."]
+                    ,["https://iupui.edu",
+                     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/IUPUI_wordmark.svg/1200px-IUPUI_wordmark.svg.png", 
+                     "1/2011 - 6/2017",
+                     "Research & Teaching Assistant: Developed hierarchical non-parametric Bayesian mixture models to extract hierarchical relationships within remote sensing and text data"]
+                    ,["https://www.siemens-healthineers.com",
+                     "https://upload.wikimedia.org/wikipedia/commons/7/79/Siemens_Healthineers_logo.svg",
+                     "Summer 2015, 2016",
+                     "Machine Learning Intern: Developed machine learning methods for radiology report analysis and applied for a patent"]
+                     
+                     ,["https://www.corteva.com/",
+                     "https://assets.corteva.com/is/image/Corteva/CortevaLegal_HorColor_RGB_no_tagline",
+                     "Summer 2014",
+                     "Statistics Intern: Improved a statistical simulation by making it more robust, faster, and more visual. Awarded best intern poster presentation."]
+                     ,["https://bashpolesoftware.com/",
+                     "https://bashpolesoftware.com/wp-content/uploads/2016/06/bashpolelogo_sm-1.png",
+                     "Summer 2012",
+                     "Machine Learning Intern: Improved performance of record matching using various machine learning and NLP methods"]
+                     ,['https://ctech.com.tr', 'https://ctech.com.tr/frontend/img/logo.svg', 
+                      "Summer 2009", "Embedded Developer Intern: RTSP Stream transfer using BeagleBoard embedded system and its GPIO driver"]
+                    ]}},
+    {"section": "Publications", "content" : {"list": [
+        'H Yerebakan, Y Shinagawa, A Jerebko, K Zeng, S Allen-Raffl, Gerardo Hermosillo Valadez, "Clinical decision support", US Patent Applicaton,  17/388,128, 2022',
+        'H Yerebakan, Y Shinagawa, A Jerebko, K Zeng, S Allen-Raffl, Gerardo Hermosillo Valadez, "Clinical decision support", EP Patent EP3955260A1, 2022',
+        'Shaika Chowdhury, Halid Yerebakan, Yoshihisa Shinagawa, Philip S. Yu ”MedTextSeg: A Deep Dual Sequential Model for Section Segmentation in Medical Reports” 2021 IEEE International Conference on Big Data (2021).',
+        'Halid Yerebakan, Yoshihisa Shinagawa, Anna Jerebko ”Image Retrieval”. EP Patent Application EP3910645A4 (2021)',
+        'Halid Yerebakan, Anna Jerebko, Parmeet Bhatia ”Processing a medical image to provide a visual indicator”. EP Patent Application EP3869453A1 (2021)',
+        'Halid Yerebakan, Yoshihisa Shinagawa. ”Encoding textual information for text analysis.” U.S. Patent Application No. 16/846,756, US20200334410A1 (2020).',
+        'Yoshihisa Shinagawa, Halid Ziya Yerebakan ”Supervised Features For Text Classification”, EP Patent Application EP3657354A1 (2020).',
+        'Colin B Hansen, Yiyuan Zhao, Halid Yerebakan, Luca Bogoni, Anna Jerebko ”False positive reduction of vasculature for pulmonary nodule detection”, Proceedings Volume 11314, Medical Imaging 2020: Computer-Aided Diagnosis; 113142B (2020)',
+        'Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Visualization framework based on document representation learning”, US Patent App. 15/865,539.',
+        'Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Document Representation Learning For Patient History Visualization”, Coling 2018 Demo Paper.',
+        'Halid Ziya Yerebakan, Murat Dundar ”Partially Collapsed Parallel Gibbs Sampler for Dirichlet Process Mixture Models”, Pattern Recognition Letters, 2017',
+        'Halid Ziya Yerebakan, Yiqiang Zhan, Fitsum Reda, Yoshihisa Shinagawa ”Hierarchical Latent Word Clustering”, NIPS Non-parametric Bayesian Workshop, NIPS’15.',
+        'Halid Z. Yerebakan, Bartek Rajwa, Murat Dundar, ”The Infinite Mixture of Infinite Gaussian Mixtures”, (I2GMM) NIPS’14',
+        'Murat Dundar, Halid Ziya Yerebakan , Bartek Rajwa, ”Batch Discovery of Recurring Rare Classes toward Identifying Anomalous Samples” , SIGKDD 2014.',
+        'Murat Dundar, Ferit Akova, Halid Z. Yerebakan, Bartek Rajwa, ”A Non-parametric Bayesian Model for Joint Cell Clustering and Cluster Matching: Identification of Anomalous Sample Phenotypes with Random Effects,” BMC Bioinformatics 15 (1), 314, 2014'
+    ]}},
+                     
+    {"section": "Achivements", "content" : {"list": 
+    ["Winner AWS Challenge HackOhio Hackathon, Ohio State University, 2016",
+     "Ranked 1st in MayIchallenge Artificial Intelligence contest, METU, 2011",
+     "Ranked 2nd, Bilkent University Robotic Contest 2010, Robotic arm project, TURKEY",
+     "Second stage, Tubitak National Computer Olympiads and bootcamp(top 50 in the nation)",
+     "Research Assistantship, IUPUI (NSF Funded)",
+     "Graduate Student Scholarship, Tubitak (Turkey‘s NSF) award, 2010, TURKEY",
+     "Full scholarship, Fatih University, and financial support funding",
+     "Turkish Government Scholarship (DPY) , Middle School",
+     "Ranked 169 in nationwide University Placement Exam (OSS) among about 2M participants",
+     "Ranked 658 in nationwide Graduate Examination among 225,930 participants",
+     "Ranked 1500 in High School Placement Exam in TURKEY among about 500,000 students", 
+     "Ranked 2 upon graduation, Electronics Engineering in Fatih University"]}},
+
+    {"section": "Technical Skills", "content" : {"list": [
+        "Natural Language Processing: Translation, Information Extraction, Language Modeling, Sentence Classification, BERT, Transformers",
+        "Bayesian Learning: Generative Models, Gibbs Sampling, Conjugate Prior, Clustering, Topic Models",
+        "Computer Vision: Classification, ResNET, Unet, Image Registration, Metric Learning",
+        "Speech Recognition: CTC loss, Spectogram, FFT, ASR, Registration",
+        "Optimization: Gradient Based Optimization, Parallelization, Gauss-Newton Optimization, Sampling Based Optimization",
+        "Deployment: TensorflowLite, TensorflowJS, Docker, Nginx, RestAPI, AWS, Azure, Django, NodeJS, RestAPI",
+        "Environments: Mobile, Embedded, Cloud, Workstation, Front-End, HPC, Linux, Windows, FreeBSD, Vmware, Android",
+        "Programming: Python, C/C++, Matlab, Java, R, JavaScript, .NET, PHP, Bash, HTML5, CSS, SQL, Julia, Pascal, Dart, Kotlin",
+        "Source Control: Git, SVN",
+        "Libraries: Numpy, Pandas, Tensorflow, PyTorch, Keras, QT, Jquery, OpenGL, SDL, CTakes, Vue",
+        "Serialization: XML, Json, FHIR",
+        "Databases: CosmosDB, MySQL, SQLLite, Oracle",
+        "Documentation: Latex, Lyx, Overleaf, Canva",
+        "Embedded: GNU make, Arduino, BeagleBoard, Rasberry pi, Pic, X86, Verilog HDL",
+        "Design: AutoCAD, Photoshop, InkPad",
+        "Security: Wireshark, SSL",
+        "IDE: Visual Studio, Spyder, VSCode, Chrome, Eclipse, Netbeans"
+    ]}},
+
+    {"section": "Digital Footprint", "content" : {"list": [
+        "https://halidziya.github.io",
+        "https://github.com/halidziya",
+        "https://sourceforge.net/u/halidziya/profile/",
+        "https://halidziya.blogspot.com",
+        "https://scholar.google.com/citations?user=jgI0b8cAAAAJhl=en",
+        "https://www.linkedin.com/in/halid-ziya-yerebakan-a7124226/",
+        "https://lesson.land"]}},
+
+    {"section": "Service", "content" : {"list": 
+        ["SIAM SDM 2014 Reviewer, NIPS 2016 Reviewer",
+         "Lesson.Land Volunteer Tutor",
+         "FreeBSD Developers Handbook translation"]}},
+
+
+]
+
+window.onload = function () {
+const { createApp } = Vue;
+
+window.vueapp = createApp({
+    data() {
+      return {
+        data: cv_data,
+        keyword : ""
+      }
+    }
+  }).mount('#app')
+}
+
+window.addEventListener('load', function() {
+var searchinput = document.getElementById("search");
+searchinput.addEventListener("keydown", function(event) {
+    window.vueapp.keyword=searchinput.value.toLowerCase();
+});
+
+searchinput.addEventListener("focus", function(event) {
+    searchinput.value = "";
+    window.vueapp.keyword="";
+});
+
+});
+
+</script>
+
 
 </head>
 <body style="background:#999;">
@@ -154,7 +223,7 @@ const { createApp } = Vue
 
         <div style="grid-column-start: 3;">
         Search: 
-        <input type="text" id="search"></input>
+        <input type="text" id="search" v-model="keyword"></input>
         </div>
     </div>
     <br>
@@ -166,7 +235,7 @@ const { createApp } = Vue
             <span v-if="row.content.text">{{row["content"]["text"]}}</span>
             
             <table v-if="row.content.table" style="table-layout:fixed;">
-            <tr v-for="tablerow of row.content.table">
+            <tr v-for="tablerow of row.content.table.filter(row => row[3].toLowerCase().includes(keyword))">
                 <td style="width: 10%;">        
                 <a :href="tablerow[0]">
                 <img class="icon" :src="tablerow[1]"></a></td>
@@ -174,72 +243,13 @@ const { createApp } = Vue
                 <td style="width: 80%;">{{tablerow[3]}}</td>
             </tr>
             </table>
+
+            <ul v-if="row.content.list" >
+                <li v-for="listitem of row.content.list.filter(item => item.toLowerCase().includes(keyword))">{{listitem}}</li>
+            </ul>
             
         </div>
         
-    </div>
-
-
-    <div id="publications">
-        <h4>Publications</h4>
-        <ol>
-            <li>H Yerebakan, Y Shinagawa, A Jerebko, K Zeng, S Allen-Raffl, Gerardo Hermosillo Valadez, Clinical decision support, US Patent Applicaton</li>
-            <li>
-                Shaika Chowdhury, Halid Yerebakan, Yoshihisa Shinagawa, Philip S. Yu ”MedTextSeg:
-                A Deep Dual Sequential Model for Section Segmentation in Medical Reports” 2021 IEEE
-                International Conference on Big Data (2021). <a href="">  <i class="fa fa-download" aria-hidden="true"></i> </a>
-            </li>
-            <li>
-                Halid Yerebakan, Yoshihisa Shinagawa, Anna Jerebko ”Image Retrieval”. EP Patent
-                Application EP3910645A4 (2021)
-            </li>
-            <li>
-                Halid Yerebakan, Anna Jerebko, Parmeet Bhatia ”Processing a medical image to provide
-                a visual indicator”. EP Patent Application EP3869453A1 (2021)
-            </li>
-            <li>
-                Halid Yerebakan, Yoshihisa Shinagawa. ”Encoding textual information for text analysis.”
-                U.S. Patent Application No. 16/846,756, US20200334410A1 (2020).
-            </li>
-            <li>
-                Yoshihisa Shinagawa, Halid Ziya Yerebakan ”Supervised Features For Text Classification”,
-                EP Patent Application EP3657354A1 (2020).
-            </li>
-            <li>
-                Colin B Hansen, Yiyuan Zhao, Halid Yerebakan, Luca Bogoni, Anna Jerebko ”False
-                positive reduction of vasculature for pulmonary nodule detection”, Proceedings Volume
-                11314, Medical Imaging 2020: Computer-Aided Diagnosis; 113142B (2020)
-            </li>
-            <li>
-                Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Visualization
-                framework based on document representation learning”, US Patent App. 15/865,539.
-            </li>
-            <li>
-                Halid Ziya Yerebakan, Yoshihisa Shinagawa, Parmeet Bhatia, Yiqiang Zhan ”Document
-                Representation Learning For Patient History Visualization”, Coling 2018 Demo Paper.
-            </li>
-            <li>
-                Halid Ziya Yerebakan, Murat Dundar ”Partially Collapsed Parallel Gibbs Sampler for
-                Dirichlet Process Mixture Models”, Pattern Recognition Letters, 2017
-            </li>
-            <li>
-                Halid Ziya Yerebakan, Yiqiang Zhan, Fitsum Reda, Yoshihisa Shinagawa ”Hierarchical
-                Latent Word Clustering”, NIPS Non-parametric Bayesian Workshop, NIPS’15.
-            </li>
-            <li>
-                Halid Z. Yerebakan, Bartek Rajwa, Murat Dundar, ”The Infinite Mixture of Infinite
-                Gaussian Mixtures”, (I2GMM) NIPS’14
-            </li>
-            <li>
-                Murat Dundar, Halid Ziya Yerebakan , Bartek Rajwa, ”Batch Discovery of Recurring
-                Rare Classes toward Identifying Anomalous Samples” , SIGKDD 2014.
-            </li>
-            <li>
-                Murat Dundar, Ferit Akova, Halid Z. Yerebakan, Bartek Rajwa, ”A Non-parametric
-                Bayesian Model for Joint Cell Clustering and Cluster Matching: Identification of Anomalous
-                Sample Phenotypes with Random Effects,” BMC Bioinformatics 15 (1), 314, 2014
-            </li>
-        </ol>
     </div>
 
 </div>
