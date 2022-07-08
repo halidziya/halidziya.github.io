@@ -147,12 +147,12 @@ cv_data = [
     {"section": "Digital Footprint", "content" : {"list": [
         "https://halidziya.github.io",
         "https://github.com/halidziya",
-        "https://sourceforge.net/u/halidziya/profile/",
         "https://halidziya.blogspot.com",
         "https://scholar.google.com/citations?user=jgI0b8cAAAAJhl=en",
         "https://www.linkedin.com/in/halid-ziya-yerebakan-a7124226/",
         "https://lesson.land",
-        "https://tajweedmate.com"]}},
+        "https://tajweedmate.com",
+        "https://sourceforge.net/u/halidziya/profile/"]}},
 
     {"section": "Service", "content" : {"list": 
         ["Lesson.Land Volunteer Tutor",
@@ -248,7 +248,7 @@ searchinput.addEventListener("focus", function(event) {
 
             <ul v-if="row.content.list" >
                 <li v-for="listitem of row.content.list.filter(item => item.toLowerCase().includes(keyword))">
-                    <a v-if="listitem.startsWith('http')" href="">
+                    <a v-if="listitem.startsWith('http')" :href=listitem>
                     {{listitem}}
                     </a>
                     <span v-if="!listitem.startsWith('http')">{{listitem}}<span/>
