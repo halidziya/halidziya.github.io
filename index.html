@@ -64,7 +64,7 @@
 </style>   
 
 
-<script defer>
+<script id="data" defer>
 cv_data = [
     {"section": "Summary", "content": {"text":"Machine Learning professional with 10+ years of machine learning research, development and deployment experience for clustering, computer vision, natural language processing and speech recognition applications.\
      A software developer with 15+ years of programming experience with a variety of programming languages.\
@@ -178,6 +178,11 @@ cv_data = [
 
 ]
 
+</script>
+
+
+
+<script defer>
 window.onload = function () {
 const { createApp } = Vue;
 
@@ -210,14 +215,14 @@ searchinput.addEventListener("focus", function(event) {
 var similarities = [];
 function highlight(element){
     spans = document.getElementsByClassName('highlightable');
-    words = Array.prototype.slice.call(spans).map(v => v.innerText.trim())
+    words = Array.prototype.slice.call(spans).map(v => v.innerText.toLowerCase().trim())
     selected = words.findIndex(v => v == element.innerText.trim());
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
     {
-        selected_text = spans[selected].innerText.toLowerCase().trim();
-        for (let i=0;i<spans.length;i++)
+        selected_text = words[selected];
+        for (let i=0;i<words.length;i++)
         {
-            text = spans[i].innerText.toLowerCase().trim();
+            text = words[i];
             change = 255 - 200*(text==selected_text);
             spans[i].style.backgroundColor = "rgb(255,255,"+change+")";
         }
