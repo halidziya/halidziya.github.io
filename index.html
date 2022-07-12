@@ -4,6 +4,9 @@
 <title>Halid Ziya Yerebakan</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+
 
 <style>
     html {
@@ -49,11 +52,18 @@
         max-width: 100%;
         max-height: 100%;
     }
+    .highlightable:hover{
+        background-color: #e8f1c5;
+    }
+    
 </style>   
 
 
 <script defer>
 cv_data = [
+    {"section": "Summary", "content": {"text":"Machine Learning professional with 10+ years of machine learning research, development and deployment experience for clustering, computer vision, natural language processing and speech recognition applications.\
+     A software developer with 15+ years of programming experience with a variety of programming languages.\
+     A volunteer educator that empowers others with advanced technical knowledge."}},
     {"section": "Intrests", "content": 
      {"text": "Machine Learning, Natural Language Processing, \
          Computer Vision Bayesian Non-Parametrics, Clustering, \
@@ -176,11 +186,14 @@ window.vueapp = createApp({
   }).mount('#app')
 }
 
+var model=null;
 window.addEventListener('load', function() {
 var searchinput = document.getElementById("search");
 searchinput.addEventListener("keydown", function(event) {
     window.vueapp.keyword=searchinput.value.toLowerCase();
 });
+
+use.load().then(m => {model=m;console.log("Model loaded...");hide_spinner();})
 
 searchinput.addEventListener("focus", function(event) {
     searchinput.value = "";
@@ -188,6 +201,43 @@ searchinput.addEventListener("focus", function(event) {
 });
 
 });
+
+var similarities = [];
+function highlight(element){
+    spans = document.getElementsByClassName('highlightable');
+    words = Array.prototype.slice.call(spans).map(v => v.innerText.trim())
+    selected = words.findIndex(v => v == element.innerText.trim());
+    show_spinner();
+    model.embed(words).then(embeddings => {
+        embeddings = embeddings.div(tf.norm(embeddings, 2, 1, 1))
+        selected_embed = embeddings.slice(selected,1);
+        colors = Array.from(embeddings.dot(selected_embed.transpose()).dataSync());
+        for (let i=0;i<spans.length;i++)
+        {
+            change = 255 - 200*Math.pow(colors[i],3);
+            spans[i].style.backgroundColor = "rgb(255,255,"+change+")"
+        }        
+        hide_spinner();
+    })
+}
+
+function clear()
+{
+    spans = document.getElementsByClassName('highlightable');
+    for (let i=0;i<spans.length;i++)
+        spans[i].style.backgroundColor = ""
+}
+
+function hide_spinner()
+{
+    document.getElementById("spinner").style.display="none";
+}
+
+function show_spinner()
+{
+    document.getElementById("spinner").style.display="block";
+}
+
 
 </script>
 
@@ -223,18 +273,35 @@ searchinput.addEventListener("focus", function(event) {
         </a>
         </div>
 
-        <div style="grid-column-start: 3;">
+        <div id="spinner" style="grid-column-start: 3;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" stroke="#fff">
+                <g fill="none" fill-rule="evenodd">
+                    <g transform="translate(1 1)" stroke-width="2">
+                        <circle stroke-opacity=".5" cx="18" cy="18" r="18"  stroke="black"/>
+                        <path d="M36 18c0-9.94-8.06-18-18-18">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div style="grid-column-start: 4;">
         Search: 
         <input type="text" id="search" v-model="keyword"></input>
         </div>
     </div>
     <br>
     <hr>
-    <div id="app">
+    <div id="app" onclick="clear()">
         <div v-for="row of data">
             <h4>{{row["section"]}}</h4>
             
-            <span v-if="row.content.text">{{row["content"]["text"]}}</span>
+            <span v-if="row.content.text">
+                <span class="highlightable" v-for='word of row["content"]["text"].split(" ")' onclick="highlight(this)">
+                    {{word + " "}}
+                </span>
+            </span>
             
             <table v-if="row.content.table" style="table-layout:fixed;">
             <tr v-for="tablerow of row.content.table.filter(row => row[3].toLowerCase().includes(keyword))">
@@ -242,7 +309,11 @@ searchinput.addEventListener("focus", function(event) {
                 <a :href="tablerow[0]">
                 <img class="icon" :src="tablerow[1]"></a></td>
                 <td name="date" style="width: 10%;">{{tablerow[2]}}</td>
-                <td style="width: 80%;">{{tablerow[3]}}</td>
+                <td style="width: 80%;" >
+                    <span class="highlightable" v-for='word of tablerow[3].split(" ")' onclick="highlight(this)">
+                        {{word + " "}}
+                    </span>
+                </td>
             </tr>
             </table>
 
@@ -251,7 +322,11 @@ searchinput.addEventListener("focus", function(event) {
                     <a v-if="listitem.startsWith('http')" :href=listitem>
                     {{listitem}}
                     </a>
-                    <span v-if="!listitem.startsWith('http')">{{listitem}}<span/>
+                    <span v-if="!listitem.startsWith('http')">
+                        <span class="highlightable" v-for='word of listitem.split(" ")' onclick="highlight(this)">
+                            {{word + " "}}
+                        </span>
+                    <span/>
                 </li>
             </ul>
             
